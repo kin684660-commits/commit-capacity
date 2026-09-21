@@ -5,20 +5,20 @@
   <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/中文-e8e4dc?style=for-the-badge&color=6b6560" /></a>
 </p>
 
-**Reserve a future OKX AI service. Give the ASP a delivery record.**
+**Start a future reservation from OKX AI, and make stable delivery something a provider can check.**
 
 Commit does two things.
 
-1. **Reserve ahead.** An agent books a future window on a service listed on OKX AI — quantity, attempt deadline, primary and backup — before the task needs it. A quote is not a reservation.
-2. **Make delivery something an ASP can improve.** The same commitment records a miss, a backup takeover, and a bond penalty. The provider sees what it failed to hold and can change what it promises next. This testnet sample shows that loop. It does not claim production uptime has already gone up.
+1. **Reserve ahead.** Through **Commit Capacity Quote**, listed on OKX AI, a user books a future window on the search service wired into Commit: how many calls, how fast the primary must answer, who backs it up. A quote is not a reservation. This does not reserve an arbitrary ASP listed on OKX AI.
+2. **Stable delivery.** The same reservation puts the promise next to what actually happened: a miss, a backup takeover, a bond penalty. A provider can review that record and decide what to promise next. Commit does not claim stable delivery has already improved. It makes the promise and the outcome readable together.
 
 **[Live prototype →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
 ![Homepage](docs/assets/01-home.png)
 
-## 1. Reserve a future OKX AI service
+## 1. Start the reservation on OKX AI
 
-The buyer calls **Commit Capacity Quote**, listed on OKX AI. This demo assigns the **next available future window**. The quote shows start and end, primary and backup, the attempt timeout, and the price. Confirmation is a separate step.
+The user calls **Commit Capacity Quote**. This demo assigns the next available future window. The quote shows start and end, primary and backup, the attempt timeout, and the price. A quote does not lock a seat. Confirmation does.
 
 ![Future-window quote](docs/assets/03-future-window-quote.png)
 
@@ -26,21 +26,25 @@ The buyer calls **Commit Capacity Quote**, listed on OKX AI. This demo assigns t
 
 The screenshots are real captures from 21 Sep 2026. The quoted window was an example at capture time, not a standing offer. The footer in those frames still says the source repo was unpublished — it is now this repository.
 
-## 2. A record the ASP can act on
+## 2. Stable delivery
 
-[`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) is one commitment that shows both lines.
+[`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) keeps the promise and the outcome on one record.
 
-It reserved twenty search units. Across three calls the primary returned twice. In a controlled fault test the primary missed its **eight-second** attempt deadline and the backup returned the result. Eight seconds is the primary deadline, not the total completion time. The miss, the backup, and the bond penalty are the provider record: what was promised, what was missed, what it cost.
+It reserved 20 search calls. Before the transfer, two calls ran: the first returned from the primary; the second was a controlled fault test — the primary missed **8 seconds**, and backup Nova returned the result. Eight seconds is the primary attempt deadline, not the time to finish the whole order.
 
-The remaining entitlement was transferred, the new owner called once, and the commitment was closed and settled.
+The remaining **18** calls then moved to another wallet. That wallet succeeded once. **17** remained, and the reservation was closed and settled. Three calls succeeded; 3 were used.
+
+The miss, the backup, and the bond penalty are what a provider reviews: what was promised, what was missed, what it cost.
+
+This demo also shows one extra ability: unused calls can be transferred as a whole to another wallet, which keeps using them through settlement.
 
 ![Protocol evidence](docs/assets/07-protocol-evidence.png)
 
-Of the **0.24** test tokens prepaid: **0.04** reservation fees, **0.03** execution, **0.17** unused escrow. Compensation came from the primary provider's bond. A claimable balance is not a completed withdrawal.
+The user prepaid **0.24 tCOM**: **0.04** in reservation fees for both providers, **0.20** in execution escrow. Three successful calls paid **0.03**. **0.17** of unused escrow was returned at settlement. The **0.02** compensation for the primary miss came from that provider's bond, not from execution escrow. The **0.15 tCOM** the new wallet paid to take the transfer is a separate amount, outside the original 0.24. A claimable balance is not a completed withdrawal. tCOM has no value.
 
 ![Settlement breakdown](docs/assets/08-settlement-breakdown.png)
 
-A second run, [`run_429d2129ab1e`](https://commit.jibai.site/agent), stores what the service actually returned: EIP-712, RFC 2119, and X Layer network information, from a **fixed public corpus**. That run did not close or settle. The run above did not keep response bodies. They are two different records.
+A second run, [`run_429d2129ab1e`](https://commit.jibai.site/agent), stores what search actually returned: EIP-712, RFC 2119, and X Layer network information, from a fixed public corpus. That run did not close or settle. The run above did not keep response bodies. They are two different records.
 
 ![Saved search results](docs/assets/05-delivered-search-results.png)
 
@@ -48,17 +52,17 @@ A second run, [`run_429d2129ab1e`](https://commit.jibai.site/agent), stores what
 
 | Layer | Role |
 | --- | --- |
-| **OKX AI** | Discovery and the listed service being reserved |
-| **Commit** | The future window, and the delivery record |
+| **OKX AI** | Discovery and the reservation entry. Commit Capacity Quote is listed. |
+| **Commit** | Locks the future window, fails over to backup, and keeps the record used to review stable delivery |
 | **X Layer 1952** | Escrow, bonds, and settlement |
-| **Participating ASP** | The service itself (here: Search v1) |
+| **Participating provider** | Runs Search v1 (SearchNode / Nova in this demo) |
 
-Today the primary, backup, and verifier are **project-operated**. **tCOM has no value.**
+Today the primary, backup, and verifier are project-operated.
 
 | | |
 | --- | --- |
 | Product | https://commit.jibai.site/ |
-| Reservation + delivery record | https://commit.jibai.site/evidence/run_510deba24b1d |
+| Reservation and delivery record | https://commit.jibai.site/evidence/run_510deba24b1d |
 | Saved search results | https://commit.jibai.site/agent |
 | Provider contract | https://commit.jibai.site/adapter |
 | tCOM | [`0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E`](https://www.okx.com/web3/explorer/xlayer-test/address/0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E) |
