@@ -7,8 +7,8 @@
 
 Commit answers two questions.
 
-1. **I will need an AI service later. Can I book it now?** Yes. Through **Commit Capacity Quote**, listed on OKX AI, a user books a future window on the search service wired into Commit: how many calls, how fast the primary must answer, who backs it up. A quote is not a reservation. This does not book an arbitrary ASP listed on OKX AI.
-2. **After the provider promised, how did they actually do — and is there evidence for the next review?** Yes. The same reservation keeps the promise next to what happened: a miss, a backup takeover, a bond penalty. That record is the evidence of stable delivery, for the provider to review next time. Commit does not claim stable delivery has already improved.
+1. **I will need an OKX AI service later. Can I book it ahead?** Yes. Book a future window through **Commit Capacity Quote**. The plug-in interface is ready. Other OKX AI ASPs are welcome to connect: `POST /execute`, described at https://commit.jibai.site/adapter .
+2. **After an ASP on the OKX AI market has promised, how did they actually deliver — and is there evidence for the next review?** Yes. A timeout, a backup takeover, and a bond penalty stay on the same record. That is the evidence of stable delivery.
 
 **[Live prototype →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
