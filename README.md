@@ -25,7 +25,7 @@ A quote alone does not reserve capacity. Confirmation is a separate step.
 
 `POST` https://commit.jibai.site/api/capacity/quote
 
-The quote screenshot is a real capture from 21 Sep 2026. That window was an example at capture time, not a standing offer.
+The screenshots are real captures from 21 Sep 2026. The quoted window was an example at capture time, not a standing offer. The footer in those frames still says the source repo was unpublished — it is now this repository.
 
 ## Two recorded examples — kept separate
 
