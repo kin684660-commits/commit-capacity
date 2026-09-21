@@ -1,0 +1,25 @@
+# NEW server block only. Do not merge into alpha.jibai.site or game.jibai.site.
+# Replace COMMIT_PUBLIC_HOST after the hostname is confirmed.
+
+# server {
+#   listen 443 ssl http2;
+#   server_name COMMIT_PUBLIC_HOST;
+#
+#   # ssl_certificate / ssl_certificate_key: use a cert for COMMIT_PUBLIC_HOST only.
+#
+#   location /api/ {
+#     proxy_pass http://127.0.0.1:3180;
+#     proxy_set_header Host $host;
+#     proxy_set_header X-Forwarded-Proto https;
+#     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#   }
+#
+#   location / {
+#     proxy_pass http://127.0.0.1:3100;
+#     proxy_set_header Host $host;
+#     proxy_set_header X-Forwarded-Proto https;
+#     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#   }
+# }
+#
+# SearchNode :3142 and Nova :3143 stay loopback-only. Do not proxy them publicly.

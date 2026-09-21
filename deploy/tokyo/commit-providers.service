@@ -1,0 +1,15 @@
+[Unit]
+Description=Commit SearchNode + Nova (loopback 3142/3143)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/www/wwwroot/commit
+EnvironmentFile=/www/wwwroot/commit/.env.staging
+ExecStart=/usr/local/bin/node apps/providers/src/launch.mjs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

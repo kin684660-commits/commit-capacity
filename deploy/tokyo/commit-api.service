@@ -1,0 +1,16 @@
+[Unit]
+Description=Commit API (X Layer testnet 1952)
+After=network.target
+# Independent of Alpha Coliseum / trading-asp units.
+
+[Service]
+Type=simple
+WorkingDirectory=/www/wwwroot/commit
+EnvironmentFile=/www/wwwroot/commit/.env.staging
+ExecStart=/usr/local/bin/node --experimental-strip-types --import ./scripts/ts-esm.mjs apps/api/src/server.ts
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

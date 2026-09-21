@@ -1,0 +1,11 @@
+{
+  "name": "@commit/providers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/launch.mjs",
+    "start:search-node": "node src/server.mjs search-node",
+    "start:nova": "node src/server.mjs nova"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "commit",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "doctor": "node scripts/doctor.mjs",
+    "typecheck": "packages/domain/node_modules/.bin/tsc -p packages/domain/tsconfig.json && packages/provider-sdk/node_modules/.bin/tsc -p packages/provider-sdk/tsconfig.json && apps/api/node_modules/.bin/tsc -p apps/api/tsconfig.json",
+    "test:unit": "packages/domain/node_modules/.bin/vitest run --config packages/domain/vitest.config.ts && packages/provider-sdk/node_modules/.bin/vitest run --config packages/provider-sdk/vitest.config.ts && apps/api/node_modules/.bin/vitest run --config apps/api/vitest.config.ts",
+    "test:integration": "node --test tests/integration/providers.test.mjs",
+    "test:contracts": "node scripts/test-contracts.mjs",
+    "build": "packages/domain/node_modules/.bin/tsc -p packages/domain/tsconfig.json --noEmit && packages/provider-sdk/node_modules/.bin/tsc -p packages/provider-sdk/tsconfig.json --noEmit && apps/api/node_modules/.bin/tsc -p apps/api/tsconfig.json --noEmit",
+    "lint": "node -e \"process.exit(0)\"",
+    "dev:providers": "node apps/providers/src/launch.mjs",
+    "dev:api": "node --experimental-strip-types --import ./scripts/ts-esm.mjs apps/api/src/server.ts",
+    "dev:web": "apps/web/node_modules/.bin/next dev apps/web -p 3000 -H 127.0.0.1",
+    "dev": "node apps/providers/src/launch.mjs",
+    "db:migrate": "node -e \"console.log('migrate runs on API boot (PGlite 001-004)')\"",
+    "db:backup": "node scripts/backup-pglite.mjs",
+    "seed:local": "node -e \"console.log('seed runs on API boot')\"",
+    "demo:local": "node scripts/demo-local.mjs",
+    "wallets:xlayer": "node scripts/gen-xlayer-wallets.mjs",
+    "deploy:xlayer": "node scripts/deploy-xlayer.mjs",
+    "pack:staging": "node scripts/pack-staging.mjs",
+    "smoke:quote": "node scripts/smoke-quote.mjs",
+    "smoke:1952": "COMMIT_SMOKE_1952=1 node scripts/smoke-1952.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

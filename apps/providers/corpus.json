@@ -1,0 +1,38 @@
+[
+  {
+    "recordId": "rfc-2119",
+    "title": "RFC 2119 — Key words for use in RFCs",
+    "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2119",
+    "snippet": "MUST, MUST NOT, SHOULD, and MAY define requirement levels used in protocol specifications."
+  },
+  {
+    "recordId": "eip-712",
+    "title": "EIP-712 Typed structured data hashing and signing",
+    "sourceUrl": "https://eips.ethereum.org/EIPS/eip-712",
+    "snippet": "A hashing and signing standard for typed structured data that binds a domain separator."
+  },
+  {
+    "recordId": "eip-4361",
+    "title": "EIP-4361 Sign-In with Ethereum",
+    "sourceUrl": "https://eips.ethereum.org/EIPS/eip-4361",
+    "snippet": "A message format for authenticating an Ethereum account to a service."
+  },
+  {
+    "recordId": "xlayer-docs",
+    "title": "X Layer network information",
+    "sourceUrl": "https://web3.okx.com/onchainos/dev-docs/xlayer/developer/build-on-xlayer/network-information",
+    "snippet": "Official chain IDs, RPC endpoints, explorer, and gas token for X Layer."
+  },
+  {
+    "recordId": "a2mcp",
+    "title": "OKX AI A2MCP guide",
+    "sourceUrl": "https://web3.okx.com/onchainos/dev-docs/okxai/howtomcp",
+    "snippet": "HTTP endpoints for agent services, including free JSON and payment-required x402 flows."
+  },
+  {
+    "recordId": "siwe",
+    "title": "Sign-In with Ethereum specification",
+    "sourceUrl": "https://eips.ethereum.org/EIPS/eip-4361",
+    "snippet": "Nonce, domain, URI, and expiration fields used to bind a wallet login session."
+  }
+]
