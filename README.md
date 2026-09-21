@@ -7,8 +7,8 @@
 
 Commit answers two questions.
 
-1. **I will need an OKX AI service later. Can I book it ahead?** Yes. Book a future window through **Commit Capacity Quote**. The plug-in interface is ready. Other OKX AI ASPs are welcome to connect: `POST /execute`, described at https://commit.jibai.site/adapter .
-2. **After an ASP on the OKX AI market has promised, how did they actually deliver — and is there evidence for the next review?** Yes. A timeout, a backup takeover, and a bond penalty stay on the same record. That is the evidence of stable delivery.
+1. **I will need an OKX AI service connected to Commit later. Can I book it ahead?** Yes. Book a future window through **Commit Capacity Quote**. The provider interface is ready: other OKX AI ASPs can connect through `POST /execute`.
+2. **After an ASP on the OKX AI market has promised, how did they actually deliver — and is there evidence for the next review?** Yes. A timeout, a backup takeover, and a bond penalty stay on the same record. That gives the provider evidence to review next time: what was promised, and what actually happened.
 
 **[Live prototype →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
@@ -30,15 +30,13 @@ The screenshots are real captures from 21 Sep 2026. The quoted window was an exa
 
 It reserved 20 search calls. Before the transfer, two calls ran: the first returned from the primary; the second was a controlled fault test — the primary missed **8 seconds**, and backup Nova returned the result. Eight seconds is the primary attempt deadline, not the time to finish the whole order.
 
-The remaining **18** calls then moved to another wallet. That wallet succeeded once. **17** remained, and the reservation was closed and settled. Three calls succeeded; 3 were used.
+The remaining **18** calls then moved to another wallet. That wallet succeeded once. **17** remained, and the reservation was closed and settled. All three requests ultimately succeeded, using 3 calls in total.
 
-The miss, the backup, and the bond penalty are what a provider reviews: what was promised, what was missed, what it cost.
-
-This demo also shows one extra ability: unused calls can be transferred as a whole to another wallet, which keeps using them through settlement.
+The miss, the backup, and the bond penalty are what a provider reviews next time: what was promised, and what actually happened.
 
 ![Protocol evidence](docs/assets/07-protocol-evidence.png)
 
-The user prepaid **0.24 tCOM**: **0.04** in reservation fees for both providers, **0.20** in execution escrow. Three successful calls paid **0.03**. **0.17** of unused escrow was returned at settlement. The **0.02** compensation for the primary miss came from that provider's bond, not from execution escrow. The **0.15 tCOM** the new wallet paid to take the transfer is a separate amount, outside the original 0.24. A claimable balance is not a completed withdrawal. tCOM has no value.
+The user prepaid **0.24 tCOM**: **0.04** in reservation fees for both providers, **0.20** in execution escrow. Three successful calls paid **0.03**. The remaining **0.17** of unused escrow became claimable by the user at settlement. The **0.02** compensation for the primary miss came from that provider's bond, not from execution escrow. The **0.15 tCOM** the new wallet paid to take the transfer is a separate amount, outside the original 0.24. A claimable balance is not a completed withdrawal. tCOM has no value.
 
 ![Settlement breakdown](docs/assets/08-settlement-breakdown.png)
 
