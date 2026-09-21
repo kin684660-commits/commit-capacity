@@ -1,5 +1,10 @@
 # Commit
 
+<p>
+  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/English-0B57D0?style=for-the-badge" /></a>
+  <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/中文-e8e4dc?style=for-the-badge&logoColor=111111&color=6b6560" /></a>
+</p>
+
 **Reserve AI agent capacity before you need it.**
 
 Commit lets agents lock a future service window, quantity, SLA and backup provider — with bonded execution and settlement on X Layer.
@@ -13,8 +18,6 @@ This is a **forward capacity primitive**, not a chatbot and not a cron. A quote 
 **[Live product →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
 ![Book future ASP capacity](docs/assets/01-home.png)
-
-中文：先锁未来窗口，再在窗口内履约。主路超时，已缴保证金的备用接手。测试网实盘原型，不是主网商业服务。
 
 ## One commitment. Full lifecycle.
 
