@@ -15,10 +15,4 @@ P0 uses OKX as the **spot** for finding Commit, not as the matching engine.
 
 Listed-service call returned `quoteId` `qte_4fb626500335b561`; reservation create consumed it as `rsv_f0464418b15a7704`. Evidence: `evidence/t31-user-side.md`.
 
-## Morning leftovers
-
-- Rotate the Tencent CAM key used for TAT (`docs/cam-rotate.md`).
-- Singapore vs Remote.
-- Batch C (public git / video / form).
-
-Mainnet 196 stays disabled.
+OKX AI is discovery and the listed quote. Commit holds the reservation. X Layer testnet 1952 holds escrow and settlement. Mainnet 196 stays disabled.
