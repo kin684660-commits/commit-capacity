@@ -5,18 +5,16 @@
   <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/中文-e8e4dc?style=for-the-badge&color=6b6560" /></a>
 </p>
 
-**Start a future reservation from OKX AI, and make stable delivery something a provider can check.**
+Commit answers two questions.
 
-Commit does two things.
-
-1. **Reserve ahead.** Through **Commit Capacity Quote**, listed on OKX AI, a user books a future window on the search service wired into Commit: how many calls, how fast the primary must answer, who backs it up. A quote is not a reservation. This does not reserve an arbitrary ASP listed on OKX AI.
-2. **Stable delivery.** The same reservation puts the promise next to what actually happened: a miss, a backup takeover, a bond penalty. A provider can review that record and decide what to promise next. Commit does not claim stable delivery has already improved. It makes the promise and the outcome readable together.
+1. **I will need an AI service later. Can I book it now?** Yes. Through **Commit Capacity Quote**, listed on OKX AI, a user books a future window on the search service wired into Commit: how many calls, how fast the primary must answer, who backs it up. A quote is not a reservation. This does not book an arbitrary ASP listed on OKX AI.
+2. **After the provider promised, how did they actually do — and is there evidence for the next review?** Yes. The same reservation keeps the promise next to what happened: a miss, a backup takeover, a bond penalty. That record is the evidence of stable delivery, for the provider to review next time. Commit does not claim stable delivery has already improved.
 
 **[Live prototype →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
 ![Homepage](docs/assets/01-home.png)
 
-## 1. Start the reservation on OKX AI
+## 1. Can I book it ahead?
 
 The user calls **Commit Capacity Quote**. This demo assigns the next available future window. The quote shows start and end, primary and backup, the attempt timeout, and the price. A quote does not lock a seat. Confirmation does.
 
@@ -26,7 +24,7 @@ The user calls **Commit Capacity Quote**. This demo assigns the next available f
 
 The screenshots are real captures from 21 Sep 2026. The quoted window was an example at capture time, not a standing offer. The footer in those frames still says the source repo was unpublished — it is now this repository.
 
-## 2. Stable delivery
+## 2. How did the promise actually go?
 
 [`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) keeps the promise and the outcome on one record.
 
