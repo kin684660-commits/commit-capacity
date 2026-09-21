@@ -2,128 +2,81 @@
 
 <p>
   <a href="README.md"><img alt="English" src="https://img.shields.io/badge/English-0B57D0?style=for-the-badge" /></a>
-  <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/中文-e8e4dc?style=for-the-badge&logoColor=111111&color=6b6560" /></a>
+  <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/中文-e8e4dc?style=for-the-badge&color=6b6560" /></a>
 </p>
 
-**Reserve AI agent capacity before you need it.**
+**Book future ASP capacity. Plan your next task.**
 
-Commit lets agents lock a future service window, quantity, SLA and backup provider — with bonded execution and settlement on X Layer.
+I have operated an Agent Service Provider. That taught a practical lesson: a service being available now does not mean it can deliver when an agent needs it later.
 
-> An agent needs search capacity tomorrow, 09:00–12:00 UTC.  
-> Commit reserves that window **today**.  
-> If the primary misses the 8-second attempt SLA, the bonded backup takes over.
+Commit starts with a simple question: can we reserve future service capacity, agree on delivery terms, and review what actually happened?
 
-This is a **forward capacity primitive**, not a chatbot and not a cron. A quote is not a reservation. Occupancy is exclusive.
+**[Live prototype →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
-**[Live product →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
+![Homepage](docs/assets/01-home.png)
 
-![Book future ASP capacity](docs/assets/01-home.png)
+## After a service is listed, delivery is the hard part
 
-## One commitment. Full lifecycle.
+The buyer requests search capacity through **Commit Capacity Quote**, listed on OKX AI. This demo assigns the **next available future window**. The quote shows start and end, primary and backup, the attempt timeout, and the price.
 
-Recorded on the live testnet as **one** run: [`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d).
-
-```text
-RESERVED  20 search units
-   ↓
-PRIMARY EXECUTION
-   ↓
-PRIMARY MISSED 8s SLA     ← controlled fault test
-   ↓
-NOVA FAILOVER
-   ↓
-PRIMARY BOND SLASHED      0.10 → 0.08 tCOM
-   ↓
-17 UNITS TRANSFERRED
-   ↓
-NEW OWNER EXECUTED
-   ↓
-SETTLED
-```
-
-**[View live evidence →](https://commit.jibai.site/evidence/run_510deba24b1d)**
-
-| Commitment | Search v1 · #5 on 1952 |
-| --- | --- |
-| Window | 2026-09-19 11:37:47 → 11:47:47 UTC |
-| Capacity | 20 calls |
-| Remaining | **17 / 20** |
-| Primary / backup | SearchNode / Nova |
-| SLA | ≤ 8 s primary attempt |
-| Prepaid | 0.24 tCOM (no value) |
-| Status | **SETTLED** |
-
-![Protocol evidence](docs/assets/07-protocol-evidence.png)
-
-**Reserve → Execute → Failover → Transfer → Settle.** Eight seconds is the primary attempt deadline, not end-to-end latency.
-
-Funds on this run: 0.24 prepaid = 0.04 fees + 0.03 execution + 0.17 unused escrow. 0.02 compensation came from the primary **bond**, not from escrow. 0.15 transfer is a separate payment from the new owner. **Claimable is not a completed withdrawal.**
-
-![Settlement](docs/assets/08-settlement-breakdown.png)
-
-## A quote is not a seat
-
-The listed service **Commit Capacity Quote** (#13781) returns the next future window, both providers, the timeout, and the full price. Confirmation is a separate step. A second create on the same window returns `NO_CAPACITY`.
+A quote alone does not reserve capacity. Confirmation is a separate step.
 
 ![Future-window quote](docs/assets/03-future-window-quote.png)
 
 `POST` https://commit.jibai.site/api/capacity/quote
 
-## Delivery evidence (separate run)
+The quote screenshot is a real capture from 21 Sep 2026. That window was an example at capture time, not a standing offer.
 
-[`run_429d2129ab1e`](https://commit.jibai.site/agent) stored search.v1 bodies from a fixed public corpus (EIP-712, RFC 2119, X Layer). It did **not** close/settle. The protocol run above did not keep response bodies. **Do not splice the two.**
+## Two recorded examples — kept separate
 
-![Stored search hits](docs/assets/05-delivered-search-results.png)
+They show different parts of the system. Do not splice them into one run.
 
-## Toward a forward market
+### 1. Protocol run · controlled fault test
 
-Commit is building toward a **forward market for agent capacity**. This prototype demonstrates the core primitive:
+[`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) reserved twenty search units. Across three calls, the primary returned twice. During a controlled fault test, the primary missed its **eight-second** attempt deadline, and the backup returned a result. Eight seconds is the primary deadline, not the total completion time.
 
-**transferable, bonded, future-capacity commitments.**
+The remaining entitlement was transferred, the new owner made another call, and the commitment was closed and settled. The evidence page connects the listed quote, reservation, requests, and X Layer testnet transactions.
 
-It is not yet a traditional forward exchange: no order book, no price discovery, no open set of competing independent suppliers, no secondary liquidity venue.
+![Protocol evidence](docs/assets/07-protocol-evidence.png)
 
-Today SearchNode and Nova are **project-operated** so the lifecycle can be shown end-to-end. The join surface for a third ASP is the execute contract — not a self-serve marketplace yet.
+Of the **0.24** test tokens prepaid: **0.04** reservation fees, **0.03** execution, **0.17** unused escrow. Compensation came separately from the primary provider's bond. A claimable balance is not a completed withdrawal.
 
-## Join as a provider (~20 lines)
+![Settlement breakdown](docs/assets/08-settlement-breakdown.png)
 
-Expose `POST /execute`. Commit still configures who is primary/backup and holds occupancy.
+### 2. Delivery run · fixed corpus
 
-```ts
-import { handleExecute } from "@commit/provider-sdk";
+[`run_429d2129ab1e`](https://commit.jibai.site/agent) stored the search results: EIP-712, RFC 2119, and X Layer network information, from a **fixed public corpus**. This separate run did not complete close and settlement. The protocol example did not retain response bodies.
 
-const { statusCode, json } = await handleExecute(body, {
-  providerId: "acme-search",
-  search: async (query) => mySearch(query), // { title, sourceUrl, snippet, recordId }[]
-});
-```
+![Saved search results](docs/assets/05-delivered-search-results.png)
 
-Runnable wrapper: `packages/provider-sdk/examples/readonly-http-adapter.mjs`. Contract: `docs/provider-contract.md`. Page: https://commit.jibai.site/adapter
+## For providers
+
+The same record makes missed commitments and backup recoveries visible. The goal is to help providers adjust what they promise and improve delivery over time. This small controlled sample does **not** demonstrate a production reliability improvement.
 
 ## Where each layer sits
 
 | Layer | Role |
 | --- | --- |
-| **OKX AI** | Discovery and listed quote |
-| **Commit** | Terms, reservation, execution, evidence |
-| **X Layer 1952** | Escrow, bonds, checkpoints, transfer, settle |
+| **OKX AI** | Discovery and the listed quote |
+| **Commit** | Reservation and execution |
+| **X Layer 1952** | On-chain terms and settlement trail |
 | **Participating ASP** | The actual service (here: Search v1) |
 
-## Prototype scope
+Today the primary, backup, and verifier are **project-operated**, and the test token **tCOM has no value**.
 
-tCOM has no value. Not commercial mainnet. Not x402. Not partial splits. Not decentralized arbitration. Screenshots are cropped from the live English UI on 21 Sep 2026 (nav removed; page copy not rewritten).
+Commit: reserve future capacity, plan the next task, and check the delivery record.
 
 | | |
 | --- | --- |
 | Product | https://commit.jibai.site/ |
-| Evidence (protocol) | https://commit.jibai.site/evidence/run_510deba24b1d |
-| Evidence (delivery) | https://commit.jibai.site/agent |
+| Protocol evidence | https://commit.jibai.site/evidence/run_510deba24b1d |
+| Delivery evidence | https://commit.jibai.site/agent |
+| Provider contract | https://commit.jibai.site/adapter |
 | tCOM | [`0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E`](https://www.okx.com/web3/explorer/xlayer-test/address/0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E) |
 | Registry | [`0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64`](https://www.okx.com/web3/explorer/xlayer-test/address/0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64) |
-| Sourcify | exact_match on both contracts |
 | Demo video | not published yet |
 
-Limitations: `docs/known-limitations.md`. Terms: `docs/protocol-terms.md`. Architecture: `docs/architecture.md`.
+Limitations: `docs/known-limitations.md`. Terms: `docs/protocol-terms.md`. Join contract: `docs/provider-contract.md`.
 
 ## Local quick start
 
