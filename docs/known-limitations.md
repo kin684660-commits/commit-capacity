@@ -1,5 +1,13 @@
 # Known limitations
 
+- Primary, backup, and the verifier are operated by this project. SearchNode and Nova use a fixed public corpus. This is not an open provider market.
+- tCOM has no value. This is not commercial mainnet.
+- One controlled fault test is not a production reliability claim.
+- A claimable balance is not a completed withdrawal.
+- The two public examples are different runs. `run_510deba24b1d` shows failover, transfer, and settlement. `run_429d2129ab1e` stores search results and did not close or settle.
+
+## Engineering notes
+
 - Commit-operated verifier can mis-report events. Bonds cap damage; they do not make service unfailing.
 - SearchNode and Nova are controlled demo providers over a fixed public corpus. They may share a host. This is not independent upstream disaster recovery.
 - tCOM is a valueless test token. Amounts are not a commercial quote.
