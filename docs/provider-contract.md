@@ -28,7 +28,7 @@ Respond within the attempt deadline (demo: 8 seconds) with `search.v1`:
 }
 ```
 
-Example wrapper: `packages/provider-sdk/examples/readonly-http-adapter.mjs`.
+Example wrapper: `packages/provider-sdk/examples/readonly-http-adapter.mjs`. Typed helper: `handleExecute` in `@commit/provider-sdk`.
 
 ## What Commit locks
 

@@ -1,4 +1,6 @@
-# QA_REPORT (partial, 2026-09-17)
+# QA_REPORT (2026-09-19)
+
+Recorded through T31 / T34. T32 (physical phone) is the remaining look.
 
 - Env: local Mac, Node 22.17.1, PGlite, Hardhat 31337
 - Commands: `corepack pnpm test:unit`, `test:integration`, `test:contracts`

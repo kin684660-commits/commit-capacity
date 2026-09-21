@@ -21,3 +21,4 @@ xlayer-wallets.json
 *.tar.gz
 apps/web/.next/
 *.tsbuildinfo
+.internal/

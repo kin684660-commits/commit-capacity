@@ -14,7 +14,7 @@ function check(name, pass, extra = "") {
 }
 
 check("node >= 22", Number(process.versions.node.split(".")[0]) >= 22, process.versions.node);
-check("handbook present", fs.existsSync(path.join(root, "docs/HANDBOOK.md")));
+check("protocol terms present", fs.existsSync(path.join(root, "docs/protocol-terms.md")));
 check("no .env committed", !fs.existsSync(path.join(root, ".env")));
 try {
   require.resolve("viem/package.json", { paths: [path.join(root, "packages/domain")] });

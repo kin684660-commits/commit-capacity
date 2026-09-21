@@ -10,7 +10,6 @@
     "test:integration": "node --test tests/integration/providers.test.mjs",
     "test:contracts": "node scripts/test-contracts.mjs",
     "build": "packages/domain/node_modules/.bin/tsc -p packages/domain/tsconfig.json --noEmit && packages/provider-sdk/node_modules/.bin/tsc -p packages/provider-sdk/tsconfig.json --noEmit && apps/api/node_modules/.bin/tsc -p apps/api/tsconfig.json --noEmit",
-    "lint": "node -e \"process.exit(0)\"",
     "dev:providers": "node apps/providers/src/launch.mjs",
     "dev:api": "node --experimental-strip-types --import ./scripts/ts-esm.mjs apps/api/src/server.ts",
     "dev:web": "apps/web/node_modules/.bin/next dev apps/web -p 3000 -H 127.0.0.1",

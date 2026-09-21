@@ -1,91 +1,130 @@
 # Commit
 
-**Book future ASP capacity. Plan your next task.**
+**Reserve AI agent capacity before you need it.**
 
-A service being listed now does not mean it can deliver when an agent needs it later. Commit lets a buyer reserve a **future window**, a **quantity**, and **delivery terms** — then review what actually happened: execution, backup, transfer, and settlement.
+Commit lets agents lock a future service window, quantity, SLA and backup provider — with bonded execution and settlement on X Layer.
 
-Live product: **[commit.jibai.site](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet.
+> An agent needs search capacity tomorrow, 09:00–12:00 UTC.  
+> Commit reserves that window **today**.  
+> If the primary misses the 8-second attempt SLA, the bonded backup takes over.
 
-![Homepage — Book future ASP capacity](docs/assets/01-home.png)
+This is a **forward capacity primitive**, not a chatbot and not a cron. A quote is not a reservation. Occupancy is exclusive.
 
-中文：上架只是开始，按约定时间交付才是难点。Commit 预订的是未来一段时间的 Agent 服务容量（窗口、数量、SLA）。主路超时，已缴保证金的备用接手。这是测试网实盘原型，不是主网商业服务。
+**[Live product →](https://commit.jibai.site/)** · OKX.AI ASP **#13781** · X Layer testnet **1952** · not mainnet
 
-## After a service is listed, delivery is the hard part
+![Book future ASP capacity](docs/assets/01-home.png)
 
-Commit comes from operating an ASP. The working question is simple:
+中文：先锁未来窗口，再在窗口内履约。主路超时，已缴保证金的备用接手。测试网实盘原型，不是主网商业服务。
 
-> Can we reserve future service capacity, agree on delivery terms, and review the record?
+## One commitment. Full lifecycle.
 
-A **quote is not a reservation.** Occupancy is exclusive. A second create on the same window returns `NO_CAPACITY`. A cron can remind you to call; it cannot invent a free seat.
+Recorded on the live testnet as **one** run: [`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d).
 
-## Live quote — a future window, not a chatbot
+```text
+RESERVED  20 search units
+   ↓
+PRIMARY EXECUTION
+   ↓
+PRIMARY MISSED 8s SLA     ← controlled fault test
+   ↓
+NOVA FAILOVER
+   ↓
+PRIMARY BOND SLASHED      0.10 → 0.08 tCOM
+   ↓
+17 UNITS TRANSFERRED
+   ↓
+NEW OWNER EXECUTED
+   ↓
+SETTLED
+```
 
-The buyer calls **Commit Capacity Quote**, listed on OKX AI. This demo assigns the **next available future window**. The quote shows start/end (UTC), primary and backup, the 8-second primary attempt timeout, and the full price.
+**[View live evidence →](https://commit.jibai.site/evidence/run_510deba24b1d)**
 
-Confirmation is a separate step: occupancy hold, wallet sign-in, then create on the registry.
+| Commitment | Search v1 · #5 on 1952 |
+| --- | --- |
+| Window | 2026-09-19 11:37:47 → 11:47:47 UTC |
+| Capacity | 20 calls |
+| Remaining | **17 / 20** |
+| Primary / backup | SearchNode / Nova |
+| SLA | ≤ 8 s primary attempt |
+| Prepaid | 0.24 tCOM (no value) |
+| Status | **SETTLED** |
 
-![Listed quote with a future window](docs/assets/03-future-window-quote.png)
+![Protocol evidence](docs/assets/07-protocol-evidence.png)
 
-`POST` https://commit.jibai.site/api/capacity/quote · ASP **#13781**
+**Reserve → Execute → Failover → Transfer → Settle.** Eight seconds is the primary attempt deadline, not end-to-end latency.
 
-The screenshot is a real English-page capture from 21 Sep 2026 (`qte_552aa2f75f81c697`). That window was an example at capture time, not a standing offer.
+Funds on this run: 0.24 prepaid = 0.04 fees + 0.03 execution + 0.17 unused escrow. 0.02 compensation came from the primary **bond**, not from escrow. 0.15 transfer is a separate payment from the new owner. **Claimable is not a completed withdrawal.**
 
-## Two recorded examples — kept separate
+![Settlement](docs/assets/08-settlement-breakdown.png)
 
-Do not splice these into one run. They prove different things.
+## A quote is not a seat
 
-### 1. Protocol — failover, transfer, settle
+The listed service **Commit Capacity Quote** (#13781) returns the next future window, both providers, the timeout, and the full price. Confirmation is a separate step. A second create on the same window returns `NO_CAPACITY`.
 
-[`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) reserved 20 search units. Across three calls the primary returned twice. In a **controlled fault test**, the primary missed the **8-second** attempt deadline and **Nova** returned the result. Eight seconds is the primary deadline, not end-to-end completion time.
+![Future-window quote](docs/assets/03-future-window-quote.png)
 
-The remaining entitlement was transferred, the new owner called once, then the commitment closed and settled.
+`POST` https://commit.jibai.site/api/capacity/quote
 
-![Protocol evidence — remaining 17 / used 3 / settled](docs/assets/07-protocol-evidence.png)
+## Delivery evidence (separate run)
 
-**Funds on that run (tCOM has no value):** 0.24 prepaid = 0.04 reservation fees + 0.03 execution + 0.17 unused escrow. 0.02 compensation came from the primary bond, not from execution escrow. 0.15 transfer is a separate payment from the new owner. **Claimable is not a completed withdrawal.**
+[`run_429d2129ab1e`](https://commit.jibai.site/agent) stored search.v1 bodies from a fixed public corpus (EIP-712, RFC 2119, X Layer). It did **not** close/settle. The protocol run above did not keep response bodies. **Do not splice the two.**
 
-![Settlement breakdown](docs/assets/08-settlement-breakdown.png)
+![Stored search hits](docs/assets/05-delivered-search-results.png)
 
-### 2. Delivery — saved search results
+## Toward a forward market
 
-[`run_429d2129ab1e`](https://commit.jibai.site/agent) stored search.v1 bodies from a **fixed public corpus** (EIP-712, RFC 2119, X Layer). That run did **not** complete close/settlement. The protocol run did not retain response bodies.
+Commit is building toward a **forward market for agent capacity**. This prototype demonstrates the core primitive:
 
-![Stored search hits from the delivery run](docs/assets/05-delivered-search-results.png)
+**transferable, bonded, future-capacity commitments.**
+
+It is not yet a traditional forward exchange: no order book, no price discovery, no open set of competing independent suppliers, no secondary liquidity venue.
+
+Today SearchNode and Nova are **project-operated** so the lifecycle can be shown end-to-end. The join surface for a third ASP is the execute contract — not a self-serve marketplace yet.
+
+## Join as a provider (~20 lines)
+
+Expose `POST /execute`. Commit still configures who is primary/backup and holds occupancy.
+
+```ts
+import { handleExecute } from "@commit/provider-sdk";
+
+const { statusCode, json } = await handleExecute(body, {
+  providerId: "acme-search",
+  search: async (query) => mySearch(query), // { title, sourceUrl, snippet, recordId }[]
+});
+```
+
+Runnable wrapper: `packages/provider-sdk/examples/readonly-http-adapter.mjs`. Contract: `docs/provider-contract.md`. Page: https://commit.jibai.site/adapter
 
 ## Where each layer sits
 
 | Layer | Role |
 | --- | --- |
-| **OKX AI** | Discovery and the listed quote (#13781) |
+| **OKX AI** | Discovery and listed quote |
 | **Commit** | Terms, reservation, execution, evidence |
 | **X Layer 1952** | Escrow, bonds, checkpoints, transfer, settle |
 | **Participating ASP** | The actual service (here: Search v1) |
 
-The same record is meant to help providers see missed commitments and backup recoveries, then adjust what they promise. That loop is the **goal**. One controlled sample is not a production uptime claim.
-
 ## Prototype scope
 
-- Single service class (Search v1), two **project-operated** providers (SearchNode / Nova), Commit-operated verifier
-- Free listed quote, whole remaining entitlement transfer, public evidence page
-- **tCOM** has no value · **not** commercial mainnet 196 · **not** x402 · **not** partial splits · **not** decentralized arbitration
-- Screenshots above are cropped from the live English UI (nav, including the language switch, removed). Page copy was not rewritten.
+tCOM has no value. Not commercial mainnet. Not x402. Not partial splits. Not decentralized arbitration. Screenshots are cropped from the live English UI on 21 Sep 2026 (nav removed; page copy not rewritten).
 
 | | |
 | --- | --- |
 | Product | https://commit.jibai.site/ |
-| Reserve | https://commit.jibai.site/reserve |
-| Provider contract | https://commit.jibai.site/adapter |
+| Evidence (protocol) | https://commit.jibai.site/evidence/run_510deba24b1d |
+| Evidence (delivery) | https://commit.jibai.site/agent |
 | tCOM | [`0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E`](https://www.okx.com/web3/explorer/xlayer-test/address/0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E) |
 | Registry | [`0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64`](https://www.okx.com/web3/explorer/xlayer-test/address/0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64) |
 | Sourcify | exact_match on both contracts |
 | Demo video | not published yet |
-| This repo | public source for the product above |
 
-Known limitations: `docs/known-limitations.md`. Terms: `docs/protocol-terms.md`.
+Limitations: `docs/known-limitations.md`. Terms: `docs/protocol-terms.md`. Architecture: `docs/architecture.md`.
 
 ## Local quick start
 
-No private keys required for Hardhat. Defaults never connect mainnet 196 or the production database.
+No private keys for Hardhat. Defaults never touch mainnet 196 or the production database.
 
 ```bash
 corepack pnpm install --frozen-lockfile
@@ -97,16 +136,4 @@ corepack pnpm build
 corepack pnpm demo:local
 ```
 
-Then open http://127.0.0.1:3000/evidence/local while the demo stack is still running (`/evidence/local` is **local-only**).
-
-`demo:local` boots **Hardhat 31337**, then execute → failover → transfer → settle on that local chain. Contest chain is **1952**.
-
-Wallets, `.env`, and `.local/` are gitignored on purpose. Clone and the commands above are enough.
-
-## Docs
-
-- Spec: `docs/HANDBOOK.md`
-- Architecture: `docs/architecture.md`
-- OKX listing: `docs/OKX-INTEGRATION.md`
-- Tests: `docs/QA_REPORT.md`
-- Deploy: `docs/deployment.md`
+Then http://127.0.0.1:3000/evidence/local while the stack is running (local-only). `demo:local` uses Hardhat **31337**. Contest chain is **1952**.

@@ -1,6 +1,8 @@
 # Architecture
 
-Commit is a **forward market for agent service capacity**, not an agent storefront.
+Commit is building toward a **forward market for agent capacity**. This prototype is the core primitive: a transferable, bonded future-capacity commitment (window + quantity + SLA + backup). It is not yet a full exchange: no order book, no price discovery, no open provider marketplace.
+
+Not an agent storefront. A quote is not a reservation.
 
 ## Layers
 
