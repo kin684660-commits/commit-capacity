@@ -15,6 +15,6 @@ export const explorerAddress = (a: string) => `${EXPLORER}/address/${a}`;
 export const explorerTx = (h: string) => `${EXPLORER}/tx/${h}`;
 export const sourcify = (a: string) => `https://repo.sourcify.dev/${CHAIN_ID}/${a}`;
 export const QUOTE_ENDPOINT = "https://commit.jibai.site/api/capacity/quote";
-/** Empty until the owner publishes them. Do not invent GitHub/YouTube URLs. */
-export const SOURCE_REPO = "";
+/** Empty DEMO_VIDEO until a real public URL exists. Do not invent YouTube. */
+export const SOURCE_REPO = "https://github.com/kin684660-commits/commit-capacity";
 export const DEMO_VIDEO = "";
