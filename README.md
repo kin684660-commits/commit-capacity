@@ -27,11 +27,11 @@ A quote alone does not reserve capacity. Confirmation is a separate step.
 
 The screenshots are real captures from 21 Sep 2026. The quoted window was an example at capture time, not a standing offer. The footer in those frames still says the source repo was unpublished — it is now this repository.
 
-## Two recorded examples — kept separate
+## Two recorded examples
 
-They show different parts of the system. Do not splice them into one run.
+They show different parts of the system.
 
-### 1. Protocol run · controlled fault test
+### 1. Protocol example · controlled fault test
 
 [`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) reserved twenty search units. Across three calls, the primary returned twice. During a controlled fault test, the primary missed its **eight-second** attempt deadline, and the backup returned a result. Eight seconds is the primary deadline, not the total completion time.
 
@@ -43,9 +43,9 @@ Of the **0.24** test tokens prepaid: **0.04** reservation fees, **0.03** executi
 
 ![Settlement breakdown](docs/assets/08-settlement-breakdown.png)
 
-### 2. Delivery run · fixed corpus
+### 2. Delivery example · fixed corpus
 
-[`run_429d2129ab1e`](https://commit.jibai.site/agent) stored the search results: EIP-712, RFC 2119, and X Layer network information, from a **fixed public corpus**. This separate run did not complete close and settlement. The protocol example did not retain response bodies.
+[`run_429d2129ab1e`](https://commit.jibai.site/agent) stored the search results: EIP-712, RFC 2119, and X Layer network information, from a **fixed public corpus**. This run did not complete close and settlement. The protocol example did not retain response bodies.
 
 ![Saved search results](docs/assets/05-delivered-search-results.png)
 
@@ -74,7 +74,6 @@ Commit: reserve future capacity, plan the next task, and check the delivery reco
 | Provider contract | https://commit.jibai.site/adapter |
 | tCOM | [`0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E`](https://www.okx.com/web3/explorer/xlayer-test/address/0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E) |
 | Registry | [`0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64`](https://www.okx.com/web3/explorer/xlayer-test/address/0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64) |
-| Demo video | not published yet |
 
 Limitations: `docs/known-limitations.md`. Terms: `docs/protocol-terms.md`. Join contract: `docs/provider-contract.md`.
 
