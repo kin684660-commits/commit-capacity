@@ -5,7 +5,7 @@
   <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/中文-0B57D0?style=for-the-badge" /></a>
 </p>
 
-**预订未来的 ASP 容量。安排下一步任务。**
+**提前预约 ASP 服务，让未来任务有所准备。**
 
 我做过 Agent 服务商（ASP）。实际教训是：服务现在能接，不代表 Agent 以后需要时还能按约定交付。
 
@@ -27,11 +27,11 @@ Commit 只问一件事：能不能预订未来的服务容量，谈好交付条�
 
 截图是 2026-09-21 的真实采集。那个报价窗口是采集当时的例子，不是长期有效承诺。画面页脚仍写着仓库未公开 — 现在就是本仓库。
 
-## 两笔已记录的例子 — 分开讲
+## 两笔已记录的例子
 
-它们证明系统的不同部分。不要剪成同一笔。
+它们说明系统的不同部分。
 
-### 1. 协议跑 · 受控故障测试
+### 1. 协议例子 · 受控故障测试
 
 [`run_510deba24b1d`](https://commit.jibai.site/evidence/run_510deba24b1d) 预订了 20 个搜索单位。三次调用里，主路成功两次。受控故障测试中，主路错过 **8 秒**应答时限，备用返回了结果。8 秒是主路时限，不是整笔完成时间。
 
@@ -43,9 +43,9 @@ Commit 只问一件事：能不能预订未来的服务容量，谈好交付条�
 
 ![结算拆分](docs/assets/08-settlement-breakdown.png)
 
-### 2. 交付跑 · 固定语料
+### 2. 交付例子 · 固定语料
 
-[`run_429d2129ab1e`](https://commit.jibai.site/agent) 保存了检索结果：EIP-712、RFC 2119、X Layer 网络信息，来自**固定公开语料**。这一笔没有完成关闭和结算。协议跑没有保留响应正文。
+[`run_429d2129ab1e`](https://commit.jibai.site/agent) 保存了检索结果：EIP-712、RFC 2119、X Layer 网络信息，来自**固定公开语料**。这一笔没有完成关闭和结算。协议例子没有保留响应正文。
 
 ![保存的检索结果](docs/assets/05-delivered-search-results.png)
 
@@ -74,7 +74,6 @@ Commit：预订未来容量，安排下一步任务，核对交付记录。
 | 服务商契约 | https://commit.jibai.site/adapter |
 | tCOM | [`0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E`](https://www.okx.com/web3/explorer/xlayer-test/address/0x01F0171f1D2cb9e2Ec133538f155bE79dda81d5E) |
 | 登记合约 | [`0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64`](https://www.okx.com/web3/explorer/xlayer-test/address/0x1Ee0Adbdc8A06504BaaE33a607185F7D9786Ac64) |
-| 演示视频 | 尚未发布 |
 
 局限：`docs/known-limitations.md`。条款：`docs/protocol-terms.md`。接入契约：`docs/provider-contract.md`。
 
