@@ -1,8 +1,8 @@
 # Architecture
 
-Commit is building toward a **forward market for agent capacity**. This prototype is the core primitive: a transferable, bonded future-capacity commitment (window + quantity + SLA + backup). It is not yet a full exchange: no order book, no price discovery, no open provider marketplace.
+Commit reserves future agent-service capacity (window, quantity, SLA) with bonded backup. Not an agent storefront. A quote is not a reservation.
 
-Not an agent storefront. A quote is not a reservation.
+OKX AI supports discovery and the listed quote. Commit coordinates reservation and execution. X Layer records the on-chain terms and settlement trail.
 
 ## Layers
 
